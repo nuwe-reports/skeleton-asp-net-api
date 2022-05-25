@@ -1,0 +1,44 @@
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - devel
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+    branches:
+      - main
+      - devel
+
+jobs:
+  secrets-gate:
+    runs-on: self-hosted
+    outputs:
+      ok: ${{ steps.check-secrets.outputs.ok }}
+    steps:
+      - name: check for secrets needed to run SonarQube
+        id: check-secrets
+        run: |
+          if [ ! -z "${{ secrets.SONAR_TOKEN }}" ] && [ ! -z "${{ secrets.SONAR_HOST_URL }}" ]; then
+            echo "::set-output name=ok::true"
+          fi
+
+  sonarqube:
+    runs-on: self-hosted
+    needs:
+      - secrets-gate
+    if: ${{ needs.secrets-gate.outputs.ok == 'true' }}
+    steps:
+      - name: checkout repository 
+        uses: actions/checkout@v3
+  
+      - name: Execute make test
+        run: make sonarqube 
+
+        env:
+          REPO_NAME: ${{ github.event.repository.name }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
