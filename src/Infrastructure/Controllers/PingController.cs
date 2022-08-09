@@ -9,7 +9,7 @@ namespace CleanArchitecture.Infrastructure.Controllers
         [HttpGet("health")]
         public async Task<ActionResult<int>> Get()
         {
-            return await Mediator.Send(new GetPingQuery());
+            return await Mediator.Send(new GetPingQueryRequest());
         }
     }
 }

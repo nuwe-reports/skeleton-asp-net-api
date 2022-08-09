@@ -5,20 +5,20 @@ using CleanArchitecture.Application.Ping.Repositories;
 
 namespace CleanArchitecture.Application.Ping.Queries
 {
-    public class GetPingQuery : IRequest<int>
+    public class GetPingQueryRequest : IRequest<int>
     {
     }
 
-    public class GetExampleQueryQueryHandler : IRequestHandler<GetPingQuery, int>
+    public class GetPingQueryHandler : IRequestHandler<GetPingQueryRequest, int>
     {
         private IRepository repository;
 
-        public GetExampleQueryQueryHandler(IRepository repository)
+        public GetPingQueryHandler(IRepository repository)
         {
             this.repository = repository;
         }
 
-        public async Task<int> Handle(GetPingQuery request, CancellationToken cancellationToken)
+        public async Task<int> Handle(GetPingQueryRequest request, CancellationToken cancellationToken)
         {
             return await repository.GetQueryAsync();
         }
