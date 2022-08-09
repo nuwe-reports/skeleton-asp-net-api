@@ -35,7 +35,7 @@ jobs:
       - name: checkout repository 
         uses: actions/checkout@v3
   
-      - name: Execute make test
+      - name: Execute Sonarqube analysis
         run: make sonarqube 
 
         env:
