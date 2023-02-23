@@ -1,21 +1,11 @@
 on:
-  workflow_dispatch:
   push:
     branches:
       - main
-      - devel
-  pull_request:
-    types:
-      - opened
-      - reopened
-      - synchronize
-    branches:
-      - main
-      - devel
 
 jobs:
   secrets-gate:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     outputs:
       ok: ${{ steps.check-secrets.outputs.ok }}
     steps:
@@ -27,7 +17,7 @@ jobs:
           fi
 
   sonarqube:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs:
       - secrets-gate
     if: ${{ needs.secrets-gate.outputs.ok == 'true' }}
