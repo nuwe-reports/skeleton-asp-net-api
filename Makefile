@@ -12,7 +12,7 @@ test: .build
 	make down
 
 sonarqube: .build
-	docker compose run --rm -e REPO_NAME="${REPO_NAME}" -e SONAR_HOST_URL="${SONAR_HOST_URL}" -e SONAR_TOKEN="${SONAR_TOKEN}" -it dotnet-skeleton-tests bash -c './github-actions.sh'
+	docker compose run --rm -e REPO_NAME="${REPO_NAME}" -e SONAR_HOST_URL="${SONAR_HOST_URL}" -e SONAR_TOKEN="${SONAR_TOKEN}" dotnet-skeleton-tests bash -c './github-actions.sh'
 	make down
 
 .build:
