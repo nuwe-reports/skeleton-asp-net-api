@@ -24,5 +24,7 @@ services:
       dockerfile: docker/test/Dockerfile
     volumes:
       - ./CoverageReport:/CoverageReport
+      - ./tests/Domain.UnitTests/TestResults:/tests/Domain.UnitTests/TestResults
+      - ./tests/Application.E2ETests/TestResults:/tests/Application.E2ETests/TestResults
     depends_on:
       - postgres-skeleton-db

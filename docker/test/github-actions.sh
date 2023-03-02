@@ -11,7 +11,7 @@ dotnet restore "./src/WebApi/WebApi.csproj"                           ;
 
 dotnet build "./src/WebApi/WebApi.csproj" -c Release --no-restore     ;
 
-dotnet test --collect:"XPlat Code Coverage"                           ;
+dotnet test --collect:"XPlat Code Coverage" -l:trx                    ;
 
 reportgenerator                                                       \
   -reports:./tests/**/coverage.cobertura.xml                          \

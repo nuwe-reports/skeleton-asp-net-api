@@ -7,7 +7,7 @@ down:
 	docker compose down --remove-orphans
 
 test: .build
-	docker compose run --rm dotnet-skeleton-tests bash -c "dotnet test  --collect:'XPlat Code Coverage' && \
+	docker compose run --rm dotnet-skeleton-tests bash -c "dotnet test -l:trx --collect:'XPlat Code Coverage' && \
 	reportgenerator -reports:./tests/**/coverage.cobertura.xml -targetdir:./CoverageReport -reporttypes:TextSummary"
 	make down
 
